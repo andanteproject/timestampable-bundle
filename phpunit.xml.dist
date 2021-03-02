@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" colors="true" bootstrap="tests/bootstrap.php" xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.3/phpunit.xsd">
+  <coverage processUncoveredFiles="true">
+    <include>
+      <directory suffix=".php">src</directory>
+    </include>
+    <exclude>
+      <directory suffix=".php">src/Exception/</directory>
+      <directory suffix=".php">src/Config/</directory>
+      <directory suffix=".php">src/DependencyInjection/</directory>
+      <directory suffix=".php">src/Timestampable/</directory>
+      <file>src/AndanteTimestampableBundle.php</file>
+    </exclude>
+  </coverage>
+  <php>
+    <env name="APP_DEBUG" value="false"/>
+    <env name="DATABASE_URL" value="mysql://root:root@127.0.0.1:3306/test?serverVersion=5.7"/>
+    <!-- <env name="DATABASE_URL" value="sqlite:///%kernel.project_dir%/var/test_database.db"/> -->
+  </php>
+  <testsuites>
+    <testsuite name="Default test suite">
+      <directory>tests</directory>
+    </testsuite>
+  </testsuites>
+</phpunit>
