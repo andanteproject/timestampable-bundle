@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Andante\TimestampableBundle\Tests\Functional;
 
 use Andante\TimestampableBundle\DependencyInjection\Compiler\DoctrineEventSubscriberPass;
+use Andante\TimestampableBundle\EventSubscriber\TimestampableEventSubscriber;
 use Andante\TimestampableBundle\Tests\HttpKernel\AndanteTimestampableKernel;
 use Andante\TimestampableBundle\Tests\KernelTestCase;
 use Doctrine\ORM\EntityManagerInterface;
@@ -36,7 +37,16 @@ class SetupTest extends KernelTestCase
             $r = new \ReflectionProperty($evm, 'subscribers');
             $r->setAccessible(true);
             $subscribers = $r->getValue($evm);
-            self::assertContains(DoctrineEventSubscriberPass::TIMESTAMPABLE_SUBSCRIBER_SERVICE_ID, $subscribers);
+            $serviceIdRegistered = \in_array(
+                DoctrineEventSubscriberPass::TIMESTAMPABLE_SUBSCRIBER_SERVICE_ID,
+                $subscribers,
+                true
+            );
+            $serviceRegistered = \array_reduce($subscribers, static fn (
+                bool $carry,
+                object $service
+            ) => $carry ? $carry : $service instanceof TimestampableEventSubscriber, false);
+            self::assertTrue($serviceIdRegistered || $serviceRegistered);
         }
     }
 }
