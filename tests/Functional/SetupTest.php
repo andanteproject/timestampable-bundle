@@ -44,7 +44,7 @@ class SetupTest extends KernelTestCase
             );
             $serviceRegistered = \array_reduce($subscribers, static fn (
                 bool $carry,
-                object $service
+                $service
             ) => $carry ? $carry : $service instanceof TimestampableEventSubscriber, false);
             self::assertTrue($serviceIdRegistered || $serviceRegistered);
         }
