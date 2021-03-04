@@ -78,6 +78,7 @@ class EntityConfiguration
         } elseif (null !== $fallbackConfig) {
             $entityConfiguration->setUpdatedAtColumnName($fallbackConfig->getUpdatedAtColumnName());
         }
+
         return $entityConfiguration;
     }
 }

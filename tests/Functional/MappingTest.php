@@ -8,9 +8,9 @@ use Andante\TimestampableBundle\Tests\Fixtures\Entity\Address;
 use Andante\TimestampableBundle\Tests\Fixtures\Entity\Organization;
 use Andante\TimestampableBundle\Tests\HttpKernel\AndanteTimestampableKernel;
 use Andante\TimestampableBundle\Tests\KernelTestCase;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Mapping\ClassMetadata;
-use Doctrine\DBAL\Types\Types;
 
 class MappingTest extends KernelTestCase
 {
@@ -20,14 +20,14 @@ class MappingTest extends KernelTestCase
         self::bootKernel();
     }
 
-    protected static function createKernel(array $options = []) : AndanteTimestampableKernel
+    protected static function createKernel(array $options = []): AndanteTimestampableKernel
     {
         /** @var AndanteTimestampableKernel $kernel */
         $kernel = parent::createKernel($options);
         $kernel->addConfig('/config/custom_mapping.yaml');
+
         return $kernel;
     }
-
 
     public function testMapping(): void
     {

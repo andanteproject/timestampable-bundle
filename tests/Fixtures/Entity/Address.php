@@ -17,12 +17,12 @@ class Address implements TimestampableInterface
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
      */
-    private ?int $id  = null;
+    private ?int $id = null;
 
     /**
      * @ORM\Column(type="string", nullable=true)
      */
-    private ?string $name  = null;
+    private ?string $name = null;
 
     private ?\DateTimeImmutable $created = null;
     private ?\DateTimeImmutable $updated = null;
@@ -40,6 +40,7 @@ class Address implements TimestampableInterface
     public function setName(?string $name): self
     {
         $this->name = $name;
+
         return $this;
     }
 

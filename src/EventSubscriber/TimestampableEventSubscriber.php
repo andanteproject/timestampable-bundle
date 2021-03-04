@@ -50,14 +50,14 @@ class TimestampableEventSubscriber implements EventSubscriber
     public function loadClassMetadata(LoadClassMetadataEventArgs $loadClassMetadataEventArgs): void
     {
         $classMetadata = $loadClassMetadataEventArgs->getClassMetadata();
-        if ($classMetadata->reflClass === null && ! $classMetadata->isMappedSuperclass) {
+        if (null === $classMetadata->reflClass && !$classMetadata->isMappedSuperclass) {
             return;
         }
 
         $className = $classMetadata->reflClass->getName();
-        if (is_a($className, CreatedAtTimestampableInterface::class, true)) {
+        if (\is_a($className, CreatedAtTimestampableInterface::class, true)) {
             $createdAtPropertyName = $this->configuration->getCreatedAtPropertyNameForClass($className);
-            if (! $classMetadata->hasField($createdAtPropertyName)) {
+            if (!$classMetadata->hasField($createdAtPropertyName)) {
                 // Map field
                 $classMetadata->mapField([
                     'fieldName' => $createdAtPropertyName,
@@ -67,9 +67,9 @@ class TimestampableEventSubscriber implements EventSubscriber
                 ]);
             }
         }
-        if (is_a($className, UpdatedAtTimestampableInterface::class, true)) {
+        if (\is_a($className, UpdatedAtTimestampableInterface::class, true)) {
             $updatedAtPropertyName = $this->configuration->getUpdatedAtPropertyNameForClass($className);
-            if (! $classMetadata->hasField($updatedAtPropertyName)) {
+            if (!$classMetadata->hasField($updatedAtPropertyName)) {
                 // Map field
                 $classMetadata->mapField([
                     'fieldName' => $updatedAtPropertyName,

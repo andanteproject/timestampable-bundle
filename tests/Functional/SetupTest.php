@@ -24,6 +24,7 @@ class SetupTest extends KernelTestCase
         /** @var AndanteTimestampableKernel $kernel */
         $kernel = parent::createKernel($options);
         $kernel->addConfig('/config/basic.yaml');
+
         return $kernel;
     }
 

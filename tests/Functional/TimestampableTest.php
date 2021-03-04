@@ -23,6 +23,7 @@ class TimestampableTest extends KernelTestCase
         /** @var AndanteTimestampableKernel $kernel */
         $kernel = parent::createKernel($options);
         $kernel->addConfig('/config/custom_mapping.yaml');
+
         return $kernel;
     }
 
@@ -59,9 +60,9 @@ class TimestampableTest extends KernelTestCase
         $address1->setName('Address1-updated');
         $organization1->setName('Organization1-updated');
 
-        sleep(2);
+        \sleep(2);
         $em->flush();
-        sleep(2); //Giving time to mysqlite to update file
+        \sleep(2); //Giving time to mysqlite to update file
 
         /** @var Address|null $address1 */
         $address1 = $addressRepository->findOneBy(['name' => 'Address1-updated']);
@@ -98,9 +99,9 @@ class TimestampableTest extends KernelTestCase
         $address1->setName('Address1-updated2');
         $organization1->setName('Organization1-updated2');
 
-        sleep(2);
+        \sleep(2);
         $em->flush();
-        sleep(2); //Giving time to mysqlite to update file
+        \sleep(2); //Giving time to mysqlite to update file
 
         /** @var Address|null $address1 */
         $address1 = $addressRepository->findOneBy(['name' => 'Address1-updated2']);
