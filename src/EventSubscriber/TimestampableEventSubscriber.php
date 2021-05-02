@@ -12,8 +12,9 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\Event\LoadClassMetadataEventArgs;
 use Doctrine\ORM\Events;
+use Doctrine\Bundle\DoctrineBundle\EventSubscriber\EventSubscriberInterface;
 
-class TimestampableEventSubscriber implements EventSubscriber
+class TimestampableEventSubscriber implements EventSubscriber, EventSubscriberInterface
 {
     private Configuration $configuration;
 
