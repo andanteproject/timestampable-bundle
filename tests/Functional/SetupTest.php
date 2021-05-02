@@ -47,7 +47,9 @@ class SetupTest extends KernelTestCase
                 bool $carry,
                 $service
             ) => $carry ? $carry : $service instanceof TimestampableEventSubscriber, false);
-            $listenerRegistered = \array_reduce($evm->getListeners()['loadClassMetadata'] ?? [], static fn (
+            /** @var array<object> $listeners */
+            $listeners = $evm->getListeners()['loadClassMetadata'] ?? [];
+            $listenerRegistered = \array_reduce($listeners, static fn (
                 bool $carry,
                 $service
             ) => $carry ? $carry : $service instanceof TimestampableEventSubscriber, false);

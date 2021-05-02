@@ -6,6 +6,7 @@ namespace Andante\TimestampableBundle\Tests;
 
 use Andante\TimestampableBundle\Tests\HttpKernel\AndanteTimestampableKernel;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\Mapping\ClassMetadata;
 use Doctrine\ORM\Tools\SchemaTool;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -24,6 +25,7 @@ class KernelTestCase extends \Symfony\Bundle\FrameworkBundle\Test\KernelTestCase
         $ems = $manager->getManagers();
         /** @var EntityManagerInterface $em */
         $em = \reset($ems);
+        /** @var array<int, ClassMetadata> $metadatas */
         $metadatas = $em->getMetadataFactory()->getAllMetadata();
         $schemaTool = new SchemaTool($em);
         $schemaTool->dropSchema($metadatas);
