@@ -31,7 +31,7 @@ class TimestampableTest extends KernelTestCase
     {
         $this->createSchema();
         /** @var EntityManagerInterface $em */
-        $em = self::$container->get('doctrine.orm.default_entity_manager');
+        $em = self::getContainer()->get('doctrine.orm.default_entity_manager');
 
         $address1 = (new Address())->setName('Address1');
         $organization1 = (new Organization())->setName('Organization1');

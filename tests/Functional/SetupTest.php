@@ -31,7 +31,7 @@ class SetupTest extends KernelTestCase
     public function testSubscriberSetup(): void
     {
         /** @var ManagerRegistry $managerRegistry */
-        $managerRegistry = self::$container->get('doctrine');
+        $managerRegistry = self::getContainer()->get('doctrine');
         /** @var EntityManagerInterface $em */
         foreach ($managerRegistry->getManagers() as $em) {
             $evm = $em->getEventManager();

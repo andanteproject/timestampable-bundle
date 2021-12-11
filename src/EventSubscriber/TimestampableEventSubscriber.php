@@ -51,11 +51,14 @@ class TimestampableEventSubscriber implements EventSubscriber, EventSubscriberIn
     public function loadClassMetadata(LoadClassMetadataEventArgs $loadClassMetadataEventArgs): void
     {
         $classMetadata = $loadClassMetadataEventArgs->getClassMetadata();
-        if (null === $classMetadata->reflClass && !$classMetadata->isMappedSuperclass) {
+
+        /** @var \ReflectionClass|null $rClass */
+        $rClass = $classMetadata->reflClass;
+        if (null === $rClass) {
             return;
         }
 
-        $className = $classMetadata->reflClass->getName();
+        $className = $rClass->getName();
         if (\is_a($className, CreatedAtTimestampableInterface::class, true)) {
             $createdAtPropertyName = $this->configuration->getCreatedAtPropertyNameForClass($className);
             if (!$classMetadata->hasField($createdAtPropertyName)) {

@@ -9,7 +9,11 @@ use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Mapping\ClassMetadata;
 use Doctrine\ORM\Tools\SchemaTool;
 use Doctrine\Persistence\ManagerRegistry;
+use Psr\Container\ContainerInterface;
 
+/**
+ * @property ContainerInterface $container
+ */
 class KernelTestCase extends \Symfony\Bundle\FrameworkBundle\Test\KernelTestCase
 {
     protected static function getKernelClass(): string
@@ -20,7 +24,7 @@ class KernelTestCase extends \Symfony\Bundle\FrameworkBundle\Test\KernelTestCase
     protected function createSchema(): void
     {
         /** @var ManagerRegistry $manager */
-        $manager = self::$container->get('doctrine');
+        $manager = self::getContainer()->get('doctrine');
         /** @var EntityManagerInterface[] $ems */
         $ems = $manager->getManagers();
         /** @var EntityManagerInterface $em */
