@@ -39,9 +39,8 @@ class SetupTest extends KernelTestCase
             $allListeners = $evm->getAllListeners();
             foreach ($allListeners as $name => $listeners) {
                 if (\in_array($name, [Events::prePersist, Events::preUpdate, Events::loadClassMetadata])) {
-                    $listenerRegistered = \array_reduce($listeners, static fn(
-                        bool $carry,
-                             $service
+                    $listenerRegistered = \array_reduce($listeners, static fn (
+                        bool $carry, $service
                     ) => $carry ? $carry : $service instanceof TimestampableEventSubscriber, false);
 
                     self::assertTrue($listenerRegistered);
