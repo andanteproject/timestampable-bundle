@@ -33,7 +33,7 @@ class TimestampableEventSubscriber implements EventSubscriber
 
     public function prePersist(LifecycleEventArgs $onFlushEventArgs): void
     {
-        $entity = $onFlushEventArgs->getEntity();
+        $entity = $onFlushEventArgs->getObject();
         if ($entity instanceof CreatedAtTimestampableInterface && null === $entity->getCreatedAt()) {
             $entity->setCreatedAt(new \DateTimeImmutable());
         }
@@ -41,7 +41,7 @@ class TimestampableEventSubscriber implements EventSubscriber
 
     public function preUpdate(LifecycleEventArgs $onFlushEventArgs): void
     {
-        $entity = $onFlushEventArgs->getEntity();
+        $entity = $onFlushEventArgs->getObject();
         if ($entity instanceof UpdatedAtTimestampableInterface) {
             $entity->setUpdatedAt(new \DateTimeImmutable());
         }

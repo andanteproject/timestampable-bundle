@@ -35,7 +35,7 @@
     "require-dev": {
         "ext-json": "*",
         "roave/security-advisories": "dev-master",
-        "doctrine/orm": "^2.6.3",
+        "doctrine/orm": "^2.15.3",
         "phpunit/phpunit": "^9.5",
         "doctrine/doctrine-bundle": "^2.2",
         "symfony/yaml": "^4.4 | ^5.0 | ^6.0",

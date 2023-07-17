@@ -34,7 +34,7 @@ class AndanteTimestampableKernel extends Kernel
 
     public function getCacheDir(): string
     {
-        return \sprintf(__DIR__.'/../../var/cache/test/%s/', \hash('crc32b', ((string) \json_encode($this->configs))));
+        return \sprintf(__DIR__ . '/../../var/cache/test/%s/', \hash('crc32b', (string)\json_encode($this->configs)));
     }
 
     public function getLogDir(): string
