@@ -22,7 +22,7 @@ doctrine:
     auto_mapping: true
     mappings:
       fixtures:
-        type: annotation
+        type: attribute
         prefix: 'Andante\TimestampableBundle\Tests\Fixtures\Entity'
         dir: '%kernel.project_dir%/tests/Fixtures/Entity/'
         is_bundle: false

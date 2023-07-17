@@ -7,21 +7,15 @@ namespace Andante\TimestampableBundle\Tests\Fixtures\Entity;
 use Andante\TimestampableBundle\Timestampable\TimestampableInterface;
 use Doctrine\ORM\Mapping as ORM;
 
-/**
- * @ORM\Entity()
- */
+#[ORM\Entity]
 class Address implements TimestampableInterface
 {
-    /**
-     * @ORM\Id()
-     * @ORM\GeneratedValue()
-     * @ORM\Column(type="integer")
-     */
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(type: 'integer')]
     private ?int $id = null;
 
-    /**
-     * @ORM\Column(type="string", nullable=true)
-     */
+    #[ORM\Column(type: 'string')]
     private ?string $name = null;
 
     private ?\DateTimeImmutable $created = null;

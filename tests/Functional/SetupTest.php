@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Andante\TimestampableBundle\Tests\Functional;
 
-use Andante\TimestampableBundle\DependencyInjection\Compiler\DoctrineEventSubscriberPass;
 use Andante\TimestampableBundle\EventSubscriber\TimestampableEventSubscriber;
 use Andante\TimestampableBundle\Tests\HttpKernel\AndanteTimestampableKernel;
 use Andante\TimestampableBundle\Tests\KernelTestCase;
@@ -35,26 +34,14 @@ class SetupTest extends KernelTestCase
         /** @var EntityManagerInterface $em */
         foreach ($managerRegistry->getManagers() as $em) {
             $evm = $em->getEventManager();
-            $r = new \ReflectionProperty($evm, 'subscribers');
-            $r->setAccessible(true);
-            $subscribers = $r->getValue($evm);
-            $serviceIdRegistered = \in_array(
-                DoctrineEventSubscriberPass::TIMESTAMPABLE_SUBSCRIBER_SERVICE_ID,
-                $subscribers,
-                true
-            );
-            $serviceRegistered = \array_reduce($subscribers, static fn (
-                bool $carry,
-                $service
-            ) => $carry ? $carry : $service instanceof TimestampableEventSubscriber, false);
             /** @var array<object> $listeners */
-            $listeners = $evm->getListeners()['loadClassMetadata'] ?? [];
-            $listenerRegistered = \array_reduce($listeners, static fn (
+            $listeners = $evm->getListeners('loadClassMetadata');
+            $listenerRegistered = \array_reduce($listeners, static fn(
                 bool $carry,
-                $service
+                     $service
             ) => $carry ? $carry : $service instanceof TimestampableEventSubscriber, false);
 
-            self::assertTrue($serviceIdRegistered || $serviceRegistered || $listenerRegistered);
+            self::assertTrue($listenerRegistered);
         }
     }
 }
