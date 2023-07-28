@@ -8,8 +8,7 @@
         "doctrine-orm",
         "timestampable",
         "php",
-        "php7",
-        "php74"
+        "php8"
     ],
     "type": "symfony-bundle",
     "license": "MIT",
@@ -28,17 +27,17 @@
         }
     ],
     "require": {
-        "php": "^7.4 || ^8.0",
-        "symfony/framework-bundle": "^4.4 | ^5.0 | ^6.0",
+        "php": "^8.0",
+        "symfony/framework-bundle": "^5.0 | ^6.0",
         "doctrine/common": "^2.13 || ^3.0",
-        "doctrine/event-manager": "^1.0"
+        "doctrine/event-manager": "^1.2 | ^2.0"
     },
     "require-dev": {
         "ext-json": "*",
         "roave/security-advisories": "dev-master",
-        "doctrine/orm": "^2.6.3",
+        "doctrine/orm": "^2.15.3",
         "phpunit/phpunit": "^9.5",
-        "doctrine/doctrine-bundle": "^2.2",
+        "doctrine/doctrine-bundle": "^2.10",
         "symfony/yaml": "^4.4 | ^5.0 | ^6.0",
         "phpstan/phpstan": "^1.2",
         "phpstan/phpstan-phpunit": "^1.0",
