@@ -7,14 +7,13 @@ namespace Andante\TimestampableBundle\EventSubscriber;
 use Andante\TimestampableBundle\Config\Configuration;
 use Andante\TimestampableBundle\Timestampable\CreatedAtTimestampableInterface;
 use Andante\TimestampableBundle\Timestampable\UpdatedAtTimestampableInterface;
-use Doctrine\Bundle\DoctrineBundle\EventSubscriber\EventSubscriberInterface;
 use Doctrine\Common\EventSubscriber;
 use Doctrine\DBAL\Types\Types;
-use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\Event\LoadClassMetadataEventArgs;
 use Doctrine\ORM\Events;
+use Doctrine\Persistence\Event\LifecycleEventArgs;
 
-class TimestampableEventSubscriber implements EventSubscriber, EventSubscriberInterface
+class TimestampableEventSubscriber implements EventSubscriber
 {
     private Configuration $configuration;
 
@@ -34,7 +33,7 @@ class TimestampableEventSubscriber implements EventSubscriber, EventSubscriberIn
 
     public function prePersist(LifecycleEventArgs $onFlushEventArgs): void
     {
-        $entity = $onFlushEventArgs->getEntity();
+        $entity = $onFlushEventArgs->getObject();
         if ($entity instanceof CreatedAtTimestampableInterface && null === $entity->getCreatedAt()) {
             $entity->setCreatedAt(new \DateTimeImmutable());
         }
@@ -42,7 +41,7 @@ class TimestampableEventSubscriber implements EventSubscriber, EventSubscriberIn
 
     public function preUpdate(LifecycleEventArgs $onFlushEventArgs): void
     {
-        $entity = $onFlushEventArgs->getEntity();
+        $entity = $onFlushEventArgs->getObject();
         if ($entity instanceof UpdatedAtTimestampableInterface) {
             $entity->setUpdatedAt(new \DateTimeImmutable());
         }

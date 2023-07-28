@@ -1,22 +1,3 @@
 <?php
 
 declare(strict_types=1);
-
-use Doctrine\Common\Annotations\AnnotationReader;
-use Doctrine\Common\Annotations\AnnotationRegistry;
-use Doctrine\Common\Annotations\CachedReader;
-use Doctrine\Common\Cache\ArrayCache;
-
-if (\class_exists('Doctrine\Common\Cache\ArrayCache')) {
-    \define('TESTS_PATH', __DIR__);
-    \define('VENDOR_PATH', \dirname(__DIR__).'/vendor');
-
-    AnnotationRegistry::registerFile(
-        __DIR__.'/../vendor/doctrine/orm/lib/Doctrine/ORM/Mapping/Driver/DoctrineAnnotations.php'
-    );
-
-    $reader = new AnnotationReader();
-    /** @phpstan-ignore-next-line */
-    $reader = new CachedReader($reader, new ArrayCache());
-    $_ENV['annotation_reader'] = $reader;
-}
