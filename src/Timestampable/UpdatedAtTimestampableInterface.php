@@ -8,5 +8,5 @@ interface UpdatedAtTimestampableInterface
 {
     public function getUpdatedAt(): ?\DateTimeImmutable;
 
-    public function setUpdatedAt(\DateTimeImmutable $createdAt): void;
+    public function setUpdatedAt(\DateTimeImmutable $updatedAt): void;
 }
