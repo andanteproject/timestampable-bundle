@@ -31,7 +31,7 @@
         "symfony/framework-bundle": "^5.0 | ^6.0",
         "doctrine/common": "^2.13 || ^3.0",
         "doctrine/event-manager": "^1.2 | ^2.0",
-        "symfony/clock": "^6.3"
+        "symfony/clock": "^6.2"
     },
     "require-dev": {
         "ext-json": "*",
