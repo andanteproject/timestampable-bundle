@@ -27,10 +27,11 @@
         }
     ],
     "require": {
-        "php": "^8.0",
+        "php": "^8.1",
         "symfony/framework-bundle": "^5.0 | ^6.0",
         "doctrine/common": "^2.13 || ^3.0",
-        "doctrine/event-manager": "^1.2 | ^2.0"
+        "doctrine/event-manager": "^1.2 | ^2.0",
+        "symfony/clock": "^6.3"
     },
     "require-dev": {
         "ext-json": "*",

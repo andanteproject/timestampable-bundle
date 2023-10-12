@@ -12,14 +12,19 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Event\LoadClassMetadataEventArgs;
 use Doctrine\ORM\Events;
 use Doctrine\Persistence\Event\LifecycleEventArgs;
+use Psr\Clock\ClockInterface;
 
 class TimestampableEventSubscriber implements EventSubscriber
 {
     private Configuration $configuration;
+    private ClockInterface $clock;
 
-    public function __construct(Configuration $configuration)
-    {
+    public function __construct(
+        Configuration $configuration,
+        ClockInterface $clock
+    ) {
         $this->configuration = $configuration;
+        $this->clock = $clock;
     }
 
     public function getSubscribedEvents(): array
@@ -35,7 +40,7 @@ class TimestampableEventSubscriber implements EventSubscriber
     {
         $entity = $onFlushEventArgs->getObject();
         if ($entity instanceof CreatedAtTimestampableInterface && null === $entity->getCreatedAt()) {
-            $entity->setCreatedAt(new \DateTimeImmutable());
+            $entity->setCreatedAt($this->clock->now());
         }
     }
 
@@ -43,7 +48,7 @@ class TimestampableEventSubscriber implements EventSubscriber
     {
         $entity = $onFlushEventArgs->getObject();
         if ($entity instanceof UpdatedAtTimestampableInterface) {
-            $entity->setUpdatedAt(new \DateTimeImmutable());
+            $entity->setUpdatedAt($this->clock->now());
         }
     }
 
