@@ -45,7 +45,7 @@ jobs:
           php-version: ${{ matrix.php }}
       - if: matrix.symfony == '5.4.*'
         run: |
-          sed -ri 's/"symfony\/framework-bundle": "(.+)"/"symfony\/framework-bundle": "${{ matrix.symfony }}"/' composer.json; &&
+          sed -ri 's/"symfony\/framework-bundle": "(.+)"/"symfony\/framework-bundle": "${{ matrix.symfony }}"/' composer.json;
           sed -ri 's/"symfony\/yaml": "(.+)"/"symfony\/yaml": "${{ matrix.symfony }}"/' composer.json;
       - if: matrix.symfony != '5.4.*'
         run: |
