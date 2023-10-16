@@ -122,5 +122,25 @@ class TimestampableTest extends KernelTestCase
             $updatedAtOrganization1->format(\DateTimeInterface::ATOM),
             $organization1->getUpdatedAt()->format(\DateTimeInterface::ATOM)
         );
+
+        // Manual changing updatedAt property should not trigger the subscriber
+        $currentOrganization1CreatedAt = $organization1->getCreatedAt();
+        /** @var \DateTimeImmutable $newOrganization1UpdatedAt */
+        $newOrganization1UpdatedAt = \DateTimeImmutable::createFromFormat('Y-m-d H:i:s', '2023-01-01 00:00:00');
+        $organization1->setUpdatedAt($newOrganization1UpdatedAt);
+
+        \sleep(2);
+        $em->flush();
+        \sleep(2); // Giving time to mysqlite to update file
+
+        self::assertSame(
+            $currentOrganization1CreatedAt->format(\DateTimeInterface::ATOM),
+            $organization1->getCreatedAt()?->format(\DateTimeInterface::ATOM)
+        );
+
+        self::assertSame(
+            $newOrganization1UpdatedAt->format(\DateTimeInterface::ATOM),
+            $organization1->getUpdatedAt()?->format(\DateTimeInterface::ATOM)
+        );
     }
 }

@@ -21,7 +21,9 @@ $ composer require andanteproject/timestampable-bundle
 ## Features
 - No configuration required to be ready to go but fully customizabile;
 - `createdAt` and `updatedAt` properties are `?\DateTimeImmutable`;
-- No annotation required;
+- Uses [Symfony Clock](https://symfony.com/doc/current/components/clock.html);
+- Does not override your `createdAt` and `updatedAt` values when you set them explicitly;
+- No annotation/attributes required;
 - Works like magic ✨.
 
 ## Basic usage
