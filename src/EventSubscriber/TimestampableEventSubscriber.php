@@ -10,8 +10,9 @@ use Andante\TimestampableBundle\Timestampable\UpdatedAtTimestampableInterface;
 use Doctrine\Common\EventSubscriber;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Event\LoadClassMetadataEventArgs;
+use Doctrine\ORM\Event\PrePersistEventArgs;
+use Doctrine\ORM\Event\PreUpdateEventArgs;
 use Doctrine\ORM\Events;
-use Doctrine\Persistence\Event\LifecycleEventArgs;
 use Psr\Clock\ClockInterface;
 
 class TimestampableEventSubscriber implements EventSubscriber
@@ -36,7 +37,7 @@ class TimestampableEventSubscriber implements EventSubscriber
         ];
     }
 
-    public function prePersist(LifecycleEventArgs $onFlushEventArgs): void
+    public function prePersist(PrePersistEventArgs $onFlushEventArgs): void
     {
         $entity = $onFlushEventArgs->getObject();
         if ($entity instanceof CreatedAtTimestampableInterface && null === $entity->getCreatedAt()) {
@@ -44,11 +45,17 @@ class TimestampableEventSubscriber implements EventSubscriber
         }
     }
 
-    public function preUpdate(LifecycleEventArgs $onFlushEventArgs): void
+    public function preUpdate(PreUpdateEventArgs $onFlushEventArgs): void
     {
         $entity = $onFlushEventArgs->getObject();
         if ($entity instanceof UpdatedAtTimestampableInterface) {
-            $entity->setUpdatedAt($this->clock->now());
+            // Skipping update of updatedAt property if it has been changed manually
+            $metadata = $onFlushEventArgs->getObjectManager()->getClassMetadata(\get_class($entity));
+            $updatedAtPropertyName = $this->configuration->getUpdatedAtPropertyNameForClass($metadata->getName());
+            $entityUpdatedPropertiesNames = \array_keys($onFlushEventArgs->getEntityChangeSet());
+            if (!\in_array($updatedAtPropertyName, $entityUpdatedPropertiesNames, true)) {
+                $entity->setUpdatedAt($this->clock->now());
+            }
         }
     }
 
