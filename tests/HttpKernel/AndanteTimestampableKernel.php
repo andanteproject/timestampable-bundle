@@ -17,15 +17,15 @@ class AndanteTimestampableKernel extends Kernel
     public function registerBundles(): array
     {
         return [
-            new AndanteTimestampableBundle(),
-            new DoctrineBundle(),
             new FrameworkBundle(),
+            new DoctrineBundle(),
+            new AndanteTimestampableBundle(),
         ];
     }
 
     public function registerContainerConfiguration(LoaderInterface $loader): void
     {
-        $loader->load(__DIR__.'/config/config_test.yaml');
+        $loader->load(__DIR__.'/config/config_test.php');
 
         foreach ($this->configs as $config) {
             $loader->load($config);

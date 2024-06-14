@@ -24,7 +24,7 @@ class MappingTest extends KernelTestCase
     {
         /** @var AndanteTimestampableKernel $kernel */
         $kernel = parent::createKernel($options);
-        $kernel->addConfig('/config/custom_mapping.yaml');
+        $kernel->addConfig('/config/custom_mapping.php');
 
         return $kernel;
     }

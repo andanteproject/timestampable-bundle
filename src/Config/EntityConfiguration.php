@@ -54,7 +54,7 @@ class EntityConfiguration
         $this->updatedAtColumnName = $updatedAtColumnName;
     }
 
-    public static function createFromArray(array $config, EntityConfiguration $fallbackConfig = null): self
+    public static function createFromArray(array $config, ?EntityConfiguration $fallbackConfig = null): self
     {
         $entityConfiguration = new self();
         if (\array_key_exists('created_at_property_name', $config)) {

@@ -1,5 +1,0 @@
-andante_timestampable:
-  entity:
-    Andante\TimestampableBundle\Tests\Fixtures\Entity\Address:
-      created_at_property_name: created
-      updated_at_property_name: updated
