@@ -35,7 +35,7 @@ return [
     /// bundles...
 ];
 ```
-This should have been done automagically if you are using [Symfony Flex](https://flex.symfony.com). Otherwise, just register it by yourself.
+This should have been done automagically if you are using [Symfony Flex](https://symfony.com/doc/current/setup/flex.html). Otherwise, just register it by yourself.
 
 
 Let's suppose we have a `App\Entity\Article` doctrine entity we want to track created and update dates.
