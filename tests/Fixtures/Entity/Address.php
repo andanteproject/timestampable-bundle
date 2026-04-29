@@ -13,7 +13,8 @@ class Address implements TimestampableInterface
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
-    private ?int $id = null;
+    /** @readonly */
+    private int $id;
 
     #[ORM\Column(type: 'string')]
     private ?string $name = null;
@@ -21,7 +22,7 @@ class Address implements TimestampableInterface
     private ?\DateTimeImmutable $created = null;
     private ?\DateTimeImmutable $updated = null;
 
-    public function getId(): ?int
+    public function getId(): int
     {
         return $this->id;
     }

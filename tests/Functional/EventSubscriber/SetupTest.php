@@ -15,6 +15,7 @@ use Symfony\Component\HttpKernel\KernelInterface;
 
 class SetupTest extends KernelTestCase
 {
+    /** @param array<string, mixed> $options */
     protected static function createKernel(array $options = []): KernelInterface
     {
         return new TimestampableAppKernel('test', true, [

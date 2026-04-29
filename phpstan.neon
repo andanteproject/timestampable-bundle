@@ -1,6 +1,9 @@
 parameters:
     level: 8
-    checkMissingIterableValueType: false
-    checkGenericClassInNonGenericObjectType: false
     excludePaths:
         - src/DependencyInjection/Configuration.php
+    ignoreErrors:
+        - identifier: property.onlyRead
+          path: tests/Fixtures/Entity/Address.php
+        - identifier: property.onlyRead
+          path: tests/Fixtures/Entity/Organization.php

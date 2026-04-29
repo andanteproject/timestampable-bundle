@@ -11,7 +11,7 @@ class TimestampableCacheClearer implements CacheClearerInterface
 {
     public const METADATA_CACHE_FILENAME = 'timestampable_metadata.php';
 
-    private ?Filesystem $filesystem;
+    private Filesystem $filesystem;
 
     public function __construct(?Filesystem $filesystem = null)
     {
@@ -20,7 +20,7 @@ class TimestampableCacheClearer implements CacheClearerInterface
 
     public function clear(string $cacheDir): void
     {
-        $filesystem = $this->filesystem ?? new Filesystem();
+        $filesystem = $this->filesystem;
         $metadataFile = $cacheDir.'/'.self::METADATA_CACHE_FILENAME;
         if ($filesystem->exists($metadataFile)) {
             $filesystem->remove($metadataFile);

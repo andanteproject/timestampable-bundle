@@ -54,6 +54,7 @@ class EntityConfiguration
         $this->updatedAtColumnName = $updatedAtColumnName;
     }
 
+    /** @param array<string, mixed> $config */
     public static function createFromArray(array $config, ?EntityConfiguration $fallbackConfig = null): self
     {
         $entityConfiguration = new self();

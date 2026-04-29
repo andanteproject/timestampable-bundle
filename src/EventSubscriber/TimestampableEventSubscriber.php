@@ -67,7 +67,7 @@ class TimestampableEventSubscriber implements EventSubscriber
     {
         $classMetadata = $loadClassMetadataEventArgs->getClassMetadata();
 
-        /** @var \ReflectionClass|null $rClass */
+        /** @var \ReflectionClass<object>|null $rClass */
         $rClass = $classMetadata->reflClass;
         if (null === $rClass) {
             return;

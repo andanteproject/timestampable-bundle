@@ -18,6 +18,7 @@ class MappingTest extends KernelTestCase
 {
     use TimestampableConfigTrait;
 
+    /** @param array<string, mixed> $options */
     protected static function createKernel(array $options = []): KernelInterface
     {
         return new TimestampableAppKernel('test', true, self::getTimestampableConfig());
@@ -35,7 +36,7 @@ class MappingTest extends KernelTestCase
         self::assertSame(Types::DATETIME_IMMUTABLE, $classMetadata->fieldMappings['createdAt']['type']);
         self::assertSame(Types::DATETIME_IMMUTABLE, $classMetadata->fieldMappings['updatedAt']['type']);
 
-        /** @var ClassMetadata $classMetadata */
+        /** @var ClassMetadata<object> $classMetadata */
         $classMetadata = $em->getClassMetadata(Address::class);
         self::assertArrayHasKey('created', $classMetadata->fieldMappings);
         self::assertArrayHasKey('updated', $classMetadata->fieldMappings);

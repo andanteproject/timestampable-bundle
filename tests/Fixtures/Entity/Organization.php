@@ -16,12 +16,13 @@ class Organization implements TimestampableInterface
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
-    private ?int $id = null;
+    /** @readonly */
+    private int $id;
 
     #[ORM\Column(type: 'string')]
     private ?string $name = null;
 
-    public function getId(): ?int
+    public function getId(): int
     {
         return $this->id;
     }

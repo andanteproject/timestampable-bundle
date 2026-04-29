@@ -12,6 +12,7 @@ use Symfony\Component\HttpKernel\KernelInterface;
 
 class RegistryColdPathTest extends KernelTestCase
 {
+    /** @param array<string, mixed> $options */
     protected static function createKernel(array $options = []): KernelInterface
     {
         return new TimestampableAppKernel('test', true, [

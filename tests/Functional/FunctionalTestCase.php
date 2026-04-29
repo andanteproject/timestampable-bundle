@@ -36,13 +36,14 @@ abstract class FunctionalTestCase extends KernelTestCase
      */
     protected static function getTestContainer(): ContainerInterface
     {
-        if (\method_exists(KernelTestCase::class, 'getContainer')) {
-            return parent::getContainer();
-        }
-        $kernel = static::$kernel;
-        \assert(null !== $kernel, 'Kernel must be booted');
+        if (KernelTestCase::class === static::class) {
+            $kernel = static::$kernel;
+            \assert(null !== $kernel, 'Kernel must be booted');
 
-        return $kernel->getContainer();
+            return $kernel->getContainer();
+        }
+
+        return self::getContainer();
     }
 
     protected function createSchema(): void
@@ -53,7 +54,7 @@ abstract class FunctionalTestCase extends KernelTestCase
         $ems = $manager->getManagers();
         /** @var EntityManagerInterface $em */
         $em = \reset($ems);
-        /** @var array<int, ClassMetadata> $metadatas */
+        /** @var list<ClassMetadata<object>> $metadatas */
         $metadatas = $em->getMetadataFactory()->getAllMetadata();
         $schemaTool = new SchemaTool($em);
         $schemaTool->dropSchema($metadatas);

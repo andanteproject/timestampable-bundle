@@ -20,6 +20,7 @@ class TimestampableTest extends KernelTestCase
 
     private const SLEEP_BETWEEN_UPDATES_SECONDS = 1;
 
+    /** @param array<string, mixed> $options */
     protected static function createKernel(array $options = []): KernelInterface
     {
         return new TimestampableAppKernel('test', true, self::getTimestampableConfig());

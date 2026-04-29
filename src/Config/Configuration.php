@@ -26,6 +26,7 @@ class Configuration
         $this->defaultConfiguration = $defaultConfiguration;
     }
 
+    /** @return array<string, EntityConfiguration> */
     public function getEntitiesConfigurations(): array
     {
         return $this->entitiesConfigurations;
@@ -47,6 +48,7 @@ class Configuration
         return $this;
     }
 
+    /** @param array<string, mixed> $config */
     public static function createFromArray(array $config): self
     {
         $configuration = new self();
