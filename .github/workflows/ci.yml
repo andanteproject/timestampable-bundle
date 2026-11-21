@@ -12,17 +12,17 @@ jobs:
     strategy:
       matrix:
         php-version: ['8.2', '8.4', '8.5']
-        symfony-version: ['5.4.*', '6.4.*', '7.0.*', '8.0.*']
+        symfony-version: ['5.4.*', '6.4.*', '7.0.*', '8.1.*']
         doctrine-orm-version: ['2.20.*', '3.0.*']
         exclude:
           # Doctrine ORM 3.0 requires PHP 8.4+
           - php-version: '8.2'
             doctrine-orm-version: '3.0.*'
-          # Symfony 8.0 requires PHP 8.4+
+          # Symfony 8.1 requires PHP 8.4+
           - php-version: '8.2'
-            symfony-version: '8.0.*'
+            symfony-version: '8.1.*'
           # Symfony 8 only works with doctrine-bundle 3.1+, which conflicts with ORM 2.x
-          - symfony-version: '8.0.*'
+          - symfony-version: '8.1.*'
             doctrine-orm-version: '2.20.*'
 
     name: PHP ${{ matrix.php-version }} · SF ${{ matrix.symfony-version }} · Doctrine ORM ${{ matrix.doctrine-orm-version }}
@@ -35,7 +35,7 @@ jobs:
         with:
           php-version: ${{ matrix.php-version }}
           extensions: mbstring, xml, ctype, iconv, intl, json, pdo_sqlite, sqlite3
-          coverage: ${{ matrix.php-version == '8.5' && (matrix.symfony-version == '7.0.*' || matrix.symfony-version == '8.0.*') && matrix.doctrine-orm-version == '3.0.*' && 'pcov' || 'none' }}
+          coverage: ${{ matrix.php-version == '8.5' && (matrix.symfony-version == '7.0.*' || matrix.symfony-version == '8.1.*') && matrix.doctrine-orm-version == '3.0.*' && 'pcov' || 'none' }}
 
       - name: Constrain Symfony version
         run: |
@@ -49,7 +49,7 @@ jobs:
         run: |
           sed -ri 's/"doctrine\/orm": "[^"]+"/"doctrine\/orm": "${{ matrix.doctrine-orm-version }}"/' composer.json
           # Symfony 8 requires doctrine-bundle 3.1+, which requires doctrine/persistence ^4. ORM 3.0/3.1 only support persistence ^3. Use ORM 3.5.* (supports ^3.3.1 || ^4) for SF 8.
-          if [ "${{ matrix.symfony-version }}" = "8.0.*" ] && [ "${{ matrix.doctrine-orm-version }}" = "3.0.*" ]; then
+          if [ "${{ matrix.symfony-version }}" = "8.1.*" ] && [ "${{ matrix.doctrine-orm-version }}" = "3.0.*" ]; then
             sed -ri 's/"doctrine\/orm": "[^"]+"/"doctrine\/orm": "3.5.*"/' composer.json
           fi
 
@@ -63,14 +63,14 @@ jobs:
         run: vendor/bin/php-cs-fixer fix --dry-run --stop-on-violation --using-cache=no
 
       - name: Run PHPStan
-        if: matrix.php-version == '8.5' && (matrix.symfony-version == '7.0.*' || matrix.symfony-version == '8.0.*') && matrix.doctrine-orm-version == '3.0.*'
+        if: matrix.php-version == '8.5' && (matrix.symfony-version == '7.0.*' || matrix.symfony-version == '8.1.*') && matrix.doctrine-orm-version == '3.0.*'
         run: vendor/bin/phpstan analyse src tests --configuration=phpstan.neon --memory-limit=1G
 
       - name: Run PHPUnit tests
-        run: vendor/bin/phpunit ${{ matrix.php-version == '8.5' && (matrix.symfony-version == '7.0.*' || matrix.symfony-version == '8.0.*') && matrix.doctrine-orm-version == '3.0.*' && '--coverage-clover coverage.xml' || '' }}
+        run: vendor/bin/phpunit ${{ matrix.php-version == '8.5' && (matrix.symfony-version == '7.0.*' || matrix.symfony-version == '8.1.*') && matrix.doctrine-orm-version == '3.0.*' && '--coverage-clover coverage.xml' || '' }}
 
       - name: Upload coverage to Codecov
-        if: matrix.php-version == '8.5' && (matrix.symfony-version == '7.0.*' || matrix.symfony-version == '8.0.*') && matrix.doctrine-orm-version == '3.0.*'
+        if: matrix.php-version == '8.5' && (matrix.symfony-version == '7.0.*' || matrix.symfony-version == '8.1.*') && matrix.doctrine-orm-version == '3.0.*'
         uses: codecov/codecov-action@v4
         with:
           files: ./coverage.xml
